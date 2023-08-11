@@ -7,7 +7,6 @@ export function makeServer() {
 
     routes() {
       this.namespace = '/api';
-
       this.get('/user/:userId', async (schema, request) => {
         const userId = request.params.userId;
 
