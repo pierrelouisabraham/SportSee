@@ -5,6 +5,7 @@ export function makeServer() {
   const server = createServer({
    
 
+    
     routes() {
       this.namespace = '/api';
       this.get('/user/:userId', async (schema, request) => {
