@@ -1,26 +1,60 @@
-import { createServer, Response } from 'miragejs';
-import axios from 'axios';
+/**
+ * @file Manage the configuration setting for the mocked api using miragejs library
+ * @see {@link https://miragejs.com/}
+ * @namespace mockedApi
+ */
 
-export function makeServer() {
-  const server = createServer({
-   
+import { createServer } from 'miragejs'
+import data from '../utils/data'
 
-    
+const routes = [
+  { name: '', data: data.USER_MAIN_DATA, findBy: 'id', timing: 1000 },
+  {
+    name: '/activity',
+    data: data.USER_ACTIVITY,
+    findBy: 'userId',
+    timing: 2000,
+  },
+  {
+    name: '/average-sessions',
+    data: data.USER_AVERAGE_SESSIONS,
+    findBy: 'userId',
+    timing: 3000,
+  },
+  {
+    name: '/performance',
+    data: data.USER_PERFORMANCE,
+    findBy: 'userId',
+    timing: 4000,
+  },
+]
+
+/**
+ * Create a server to mock an api using miragejs libray
+ * @memberof mockedApi
+ * @see {@link https://miragejs.com/}
+ * @method
+ */
+const create = () =>
+  createServer({
     routes() {
-      this.namespace = '/api';
-      this.get('/user/:userId', async (schema, request) => {
-        const userId = request.params.userId;
+      this.urlPrefix = 'http://localhost:3001'
+      this.namespace = 'user'
 
-        try {
-          console.log(userId)
-          const response = await axios.get(`http://localhost:4000/user/${userId}`);
-          return new Response(200, {}, response.data);
-        } catch (error) {
-          return new Response(500, {}, { error: 'Failed to fetch data from real server' });
-        }
-      });
+      routes.forEach(
+        (route) =>
+          this.get(
+            `/:id${route.name}`,
+            (schema, request) => {
+              const id = parseInt(request.params.id)
+              return {
+                data: route.data.find((user) => user[route.findBy] === id),
+              }
+            },
+            { timing: route.timing }
+          ) // slow down the response in order to better simulate an api
+      )
     },
-  });
+  })
 
-  return server;
-}   
+export default create
