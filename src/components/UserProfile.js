@@ -6,11 +6,17 @@ import Headers from './Header.jsx';
 import SideBar from './SideBar.jsx';
 import "../style/Main.css"
 import CaloriesCount from './CaloriesCount.jsx';
+import SessionsEvolution from './Sessions.jsx';
+import ProteinsCount from './Proteins.jsx';
+import GlucidesCount from './Glucides.jsx';
+import LipidesCount from './Lipides.jsx';
+import TodaysScoreRadarChart from './PieChart.jsx'
 
 const UserProfile = ({ userId }) => {
   const [userData, setUserData] = useState(null);
   const [activityData, setActivityData] = useState(null);
   const [performanceData, setPerformanceData] = useState(null);
+  const [sessionsData, setSessionsData] = useState(null);
 
   const PORT = process.env.REACT_APP_ENVIRONMENT === 'mockApi' ? '3001' : '3000'
 
@@ -32,6 +38,12 @@ const UserProfile = ({ userId }) => {
         console.log('Activity data response:', performanceResponse.data);
         setPerformanceData(performanceResponse.data.data);
 
+        console.log('Fetching activity data...');
+        const sessionsData = await axios.get(`http://localhost:${PORT}/user/${userId}/average-sessions`);
+        console.log('Activity data response:', sessionsData.data);
+        setSessionsData(sessionsData.data);   
+        
+
       } catch (error) {
         console.error('Fetch error:', error);
       }
@@ -46,32 +58,42 @@ const UserProfile = ({ userId }) => {
   }
 
   const { userInfos, todayScore, keyData } = userData;
-
+ 
   return (
     <div>
       <Headers/>
       <div className='MainContent'>
       <div className='sidebar'>
-        <SideBar/>
+      <SideBar/>
       </div>
+      <div>
       <div>
         <p>Bonjour</p>
         <p className='firstname'> {userInfos.firstName}</p>
-        <p>Age: {userInfos.age}</p>
-      <p>Today's Score: {todayScore}</p>
-      <h3>Key Data</h3>
-      <p>Calorie Count: {keyData.calorieCount}</p>
-      <p>Protein Count: {keyData.proteinCount}</p>
-      <p>Carbohydrate Count: {keyData.carbohydrateCount}</p>
-      <p>Lipid Count: {keyData.lipidCount}</p>
-      <DailyExercises data={activityData}/>
+      </div>
+      <div className='allchart'>
+      <div className='mainChart'>
+        <DailyExercises data={activityData}/>
+      </div>
+      <div className='otherChart'>
+      <RadarChartPerformance data={performanceData}/>
+      <SessionsEvolution data={sessionsData} />
+      <TodaysScoreRadarChart data={todayScore}/>
+      </div>
+     </div>
+     <div>
       <CaloriesCount data={keyData.calorieCount}/>
+      <GlucidesCount data={keyData.carbohydrateCount}/>
+      <ProteinsCount data={keyData.proteinCount}/>
+      <LipidesCount data={keyData.lipidCount}/>
+      
+ 
       </div>
       </div>
 
 
 
-    
+      </div>
     </div>
   );
 };
