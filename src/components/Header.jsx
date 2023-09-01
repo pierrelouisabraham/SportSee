@@ -1,15 +1,18 @@
 import React from 'react'
 import logo from '../resources/logo.png'
-import '../style/Header.css'
+import '../style/Header.scss'
 
 const Headers = ({}) => {
     return(
         <div className='header'>
             <img src={logo} alt='logo'/>
-            <span className='menu'>Accueil</span>
-            <span className='menu'>profil</span>
-            <span className='menu'>Réglages</span>
-            <span className='menu'>Communauté</span>
+            <div className='menu'>
+                <span className='menuText'>Accueil</span>
+                <span className='menuText'>profil</span>
+                <span className='menuText'>Réglages</span>
+                <span className='menuText'>Communauté</span>
+
+            </div>
 
         </div>
     );

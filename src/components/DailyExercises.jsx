@@ -3,7 +3,7 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Label } fr
 import "../style/DailyExercices.css"
 
 const ChartComponent = ({ data }) => {
-    console.log(data.sessions);
+   
 
     // Custom tick formatter for Y-axis that displays kilograms
     const formatKilogramsTick = (value) => `${value}`;
@@ -11,7 +11,7 @@ const ChartComponent = ({ data }) => {
     const formatDayTick = (value) => '';
     return (   
         <div className='chart-container'> 
-            <BarChart width={835} height={320} data={data.sessions}>
+            <BarChart width={835} height={320} data={data.data}>
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="day" />
                 <YAxis yAxisId="left" label={{ value: '', angle: -90, position: 'insideLeft' }} tickFormatter={formatcalopriesTick} />

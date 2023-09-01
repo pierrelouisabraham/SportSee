@@ -1,0 +1,51 @@
+.SideContent {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 24px;
+    background-color: black;
+    height: 100%;
+    width: 117px;
+    left: 0;
+    top: 0;
+    position: fixed;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  
+
+}
+
+.allimg {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 316px;
+
+    img{
+        background-color: white;
+        border-radius: 5px;
+        width: 64px;
+        height: 64px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+    }
+
+    p {
+        color: white;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 24px;
+        transform: rotate(-90deg);
+        position: fixed;
+        z-index: 1;
+        left: -15px;
+        bottom: 100px;
+      }
+
+}

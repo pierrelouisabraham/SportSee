@@ -3,11 +3,11 @@ import Prot from '../resources/protein-icon.png'
 
 const ProteinsCount = ({ data }) => {
     return (
-        <div className='proteins'>
+        <div className='box'>
             <img src={Prot} alt='proteins'/>
             <div className='info'>
                 <p>{data}g</p>
-                <p>Proteins</p>
+                <span>Proteins</span>
             </div>
             
         </div>

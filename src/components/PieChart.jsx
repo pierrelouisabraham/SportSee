@@ -1,22 +1,51 @@
 import React from 'react';
-import { RadarChart, PolarGrid, PolarAngleAxis, Radar } from 'recharts';
+import { RadarChart, PolarGrid, PolarAngleAxis, Radar, ResponsiveContainer, RadialBarChart, RadialBar, Legend } from 'recharts';
 
-const TodaysScoreRadarChart = ({ todayScore }) => {
-  const data = [
-    { category: 'Today Score', value: todayScore },
-  ];
+const TodaysScoreRadarChart = (todayScoreData) => {
+  const res = [{ score: todayScoreData }]
+  console.log(todayScoreData)
 
-  const chartSize = 258;
+  const RenderLegend = () => (
+    <div className="score-container">
+      <span className="score">{todayScoreData * 100}%</span>
+      <p className="description">de votre objectif</p>
+    </div>
+  )
+
+ 
 
   return (
-    <RadarChart cx={chartSize} cy={chartSize} outerRadius={chartSize} width={chartSize * 2} height={chartSize * 2} data={data}>
-      <PolarGrid />
-      <PolarAngleAxis dataKey="category" />
-      <Radar name="Today's Score" dataKey="value" stroke="#8884d8" fill="#8884d8" fillOpacity={0.6} />
-      <text x={chartSize} y={chartSize} textAnchor="middle" dominantBaseline="central" style={{ fontSize: '20px' }}>
-        {`${(todayScore * 100).toFixed(2)}%`}
-      </text>
-    </RadarChart>
+    <>
+    <ResponsiveContainer height={263}>
+      <RadialBarChart
+        cx="50%"
+        cy="50%"
+        innerRadius="80%"
+        outerRadius="90%"
+        barSize={15}
+        data={res}
+        startAngle={90}
+        endAngle={450}
+      >
+        <PolarAngleAxis type="number" domain={[0, 1]} tick={false} />
+        <RadialBar
+          minAngle={15}
+          clockWise
+          dataKey="score"
+          fill="red"
+          cornerRadius={20}
+        />
+        <Legend
+          width={120}
+          height={120}
+          layout="vertical"
+          verticalAlign="middle"
+          align="center"
+          content={<RenderLegend />}
+        />
+      </RadialBarChart>
+    </ResponsiveContainer>
+    </>
   );
 };
 

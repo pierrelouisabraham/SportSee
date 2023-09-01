@@ -3,11 +3,11 @@ import Flame from '../resources/calories-icon.png'
 
 const CaloriesCount = ({ data }) => {
     return (
-        <div className='calories'>
+        <div className='box'>
             <img src={Flame} alt='calories'/>
             <div className='info'>
                 <p>{data}kCal</p>
-                <p>Calories</p>
+                <span>Calories</span>
             </div>
             
         </div>
