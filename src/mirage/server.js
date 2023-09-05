@@ -12,20 +12,17 @@ const routes = [
   {
     name: '/activity',
     data: data.USER_ACTIVITY,
-    findBy: 'userId',
-    timing: 2000,
+    findBy: 'userId'
   },
   {
     name: '/average-sessions',
     data: data.USER_AVERAGE_SESSIONS,
-    findBy: 'userId',
-    timing: 3000,
+    findBy: 'userId'
   },
   {
     name: '/performance',
     data: data.USER_PERFORMANCE,
-    findBy: 'userId',
-    timing: 4000,
+    findBy: 'userId'
   },
 ]
 
@@ -50,9 +47,8 @@ const create = () =>
               return {
                 data: route.data.find((user) => user[route.findBy] === id),
               }
-            },
-            { timing: route.timing }
-          ) // slow down the response in order to better simulate an api
+            }
+          )
       )
     },
   })

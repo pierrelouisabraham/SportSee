@@ -1,11 +1,19 @@
 class PerformanceData  {
     constructor(data) {
-        console.log(data)
+      const dataKind = {
+          1:'Cardio',
+          2:'Energie',
+          3:'Endurance',
+          4:'Force',
+          5:'Vitesse',
+          6:'Intensité'
+      }
+      
         const radarData = data.data.data.map(item => {
             console.log('Item:', item);
             
-            const kindValue = data.data.kind[parseInt(item.kind)];
-            console.log('Kind Value:', kindValue);
+            const kindValue = dataKind[parseInt(item.kind)];
+            console.log('Kind Value:', dataKind);
             
             const transformedItem = {
               kind: kindValue,

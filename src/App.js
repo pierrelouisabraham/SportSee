@@ -6,10 +6,7 @@ function App() {
   const userId = 12;
 
   return (
-    <div className="App">
       <UserProfile userId={userId} />
-     
-    </div>
   );
 }
 

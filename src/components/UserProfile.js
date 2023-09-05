@@ -13,6 +13,7 @@ import LipidesCount from './Lipides.jsx';
 import TodaysScoreRadarChart from './PieChart.jsx'
 import ActivityData from '../model/Activity.js';
 import PerformanceData from '../model/Performance.js';
+import SessionData from '../model/Session.js';
 import { PieChart } from 'recharts';
 
 const UserProfile = ({ userId }) => {
@@ -44,7 +45,7 @@ const UserProfile = ({ userId }) => {
         console.log('Fetching activity data...');
         const sessionsData = await axios.get(`http://localhost:${PORT}/user/${userId}/average-sessions`);
         console.log('Session data response:', sessionsData.data);
-        setSessionsData(sessionsData.data);   
+        setSessionsData(new SessionData(sessionsData.data));   
         
 
       } catch (error) {
@@ -60,39 +61,40 @@ const UserProfile = ({ userId }) => {
     return <div className="loader"></div>;
   }
 
-  const { userInfos, todayScore, keyData } = userData;
-  console.log(todayScore)
+  const { userInfos, keyData } = userData;
+  
+  let scoreData = userData.todayScore || userData.score;
+
+
   return (
-    <div>
-      <Headers/>
-      <SideBar/>
+ 
       <div className='Page'>
+      <Headers />
+      <SideBar />
       <div className="profile-header">
-            <span>Bonjour </span>
-            <span>{userInfos.firstName}</span>
-            <div>Félicitation ! Vous avez explosé vos objectifs hier 👏</div>
-            </div>
-        <div className='content'>
-         
-
-              <div className='allchart'>
-                <DailyExercises data={activityData}/>
-              <div className='otherChart'>
-                <RadarChartPerformance data={performanceData}/>
-                <SessionsEvolution data={sessionsData} />
-                <TodaysScoreRadarChart todayScoreData={todayScore}/>
-              </div>
-            </div>
-            <div className='energy'>
-            <CaloriesCount data={keyData.calorieCount}/>
-            <GlucidesCount data={keyData.carbohydrateCount}/>
-            <ProteinsCount data={keyData.proteinCount}/>
-            <LipidesCount data={keyData.lipidCount}/>
+        <span>Bonjour </span>
+        <span>{userInfos.firstName}</span>
+        <div>Félicitation ! Vous avez explosé vos objectifs hier 👏</div>
+      </div>
+      <div className='content'>
+        <div className='allchart'>
+          <DailyExercises data={activityData} />
+          <div className='otherChart'>
+            <SessionsEvolution data={sessionsData} /> 
+            <RadarChartPerformance data={performanceData} />
+            <TodaysScoreRadarChart todayScoreData={scoreData} />
           </div>
-          </div>
-
+        </div>
+        <div className='energy'>
+          <CaloriesCount data={keyData.calorieCount} />
+          <GlucidesCount data={keyData.carbohydrateCount} />
+          <ProteinsCount data={keyData.proteinCount} />
+          <LipidesCount data={keyData.lipidCount} />
         </div>
       </div>
+
+    </div>
+
   
   );
 };
