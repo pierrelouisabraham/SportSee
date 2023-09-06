@@ -106,6 +106,17 @@ left: 224px;
 .chart-container {
   height: 320px;
 background-color: #00000005;
+.title-barchart{
+  font-family: Roboto;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: 0px;
+  text-align: left;
+
+}
+
+
 } 
 
 .allchart {
@@ -121,6 +132,9 @@ background-color: #00000005;
 
 .radial-bar {
   width: 33%;
+  background: #FBFBFB;
+  box-shadow: 0px 2px 4px 0px #00000005;
+
   .recharts-wrapper {
     .recharts-legend-wrapper {
       text-align: center;
@@ -151,4 +165,29 @@ background-color: #00000005;
 .line-chart {
   width: 33%;
   background-color: #ff0000;
+}
+
+.title-score {
+  font-family: Roboto;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: 0px;
+  text-align: left;
+  margin-left: 28%;
+  position: relative;
+  top: 10%;
+}
+
+.title-linear{
+  font-family: Roboto;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: 0px;
+  text-align: left;
+  position: relative;
+  color:  rgba(255, 255, 255, 0.504);
+  top: 8%;
+  left: 12%;
 }

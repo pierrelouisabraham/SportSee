@@ -16,6 +16,7 @@ const TodaysScoreRadarChart = ({ todayScoreData }) => {
 
   return (
     <div className='radial-bar'>  
+    <span className='title-score'>Score</span>
       <ResponsiveContainer height={263}>
         <RadialBarChart
           cx="50%"

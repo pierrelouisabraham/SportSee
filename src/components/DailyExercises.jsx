@@ -32,10 +32,41 @@ const ChartComponent = ({ data }) => {
     
         return null
       }
+
+      const CustomLegend = ({ payload }) => (
+        <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'space-between' }}>
+          <div>
+            <span style={{ fontFamily: 'Roboto', fontSize: '15px', fontWeight: '500', lineHeight: '24px', textAlign: 'left', color: '#20253A'
+}}
+            >Activité quotidienne</span>
+          </div>
+          <div style={{display: 'flex', flexDirection: 'row', width: '22%',
+          justifyContent: 'space-around' }}>
+          {payload.map((entry, index) => (
+            <div key={`legend-${index}`} style={{ display: 'flex', alignItems: 'center',  }}>
+              <span
+                style={{
+                  width: '10px',
+                  height: '10px',
+                  backgroundColor: entry.color,
+                  marginLeft: '5px',
+                }}
+              />
+
+              {entry.value === 'Calories' && <span style={{ marginLeft: '5px', fontFamily: 'Roboto', fontSize: '14px', fontWeight: '500', lineHeight: '24px', textAlign: 'left' }}>Calories brûlées (kCal)</span>}
+              {entry.value === 'Kilograms' && <span style={{ marginLeft: '5px',fontFamily: 'Roboto', fontSize: '14px', fontWeight: '500', lineHeight: '24px', textAlign: 'left' }}>poids (kg)</span>}
+              
+            </div>
+          ))}
+          </div>
+        </div>
+      );
     
     return (   
         <div className='chart-container'>
+        
             <ResponsiveContainer>
+              
                 <BarChart width={835} height={320} data={data.data}         
                 margin={{
                      top: 5,
@@ -57,21 +88,14 @@ const ChartComponent = ({ data }) => {
                     height={50}
                     wrapperStyle={{
                         paddingBottom: '30px',
-                        color: 'blue', 
-                    }} 
-                    formatter={(value) => {
-                        
-                        if (value === 'Calories') {
-                            return 'Calories brûlées (kCal)';
-                        } else if (value === 'Kilograms') {
-                            return 'poids (kg)';
-                        }
-                        return value;
-                    }}/>
+                       
+                    }}
+                    content={<CustomLegend />}
+                  />
                  <Bar yAxisId="left" dataKey="calories" name="Calories" fill="#E60000" />
                  <Bar yAxisId="right" dataKey="kilogram" name="Kilograms" fill="#282D30" />
-                 <Label content={<CustomLabel />} value="Chart Title" position="insideTopLeft" />
                 </BarChart>
+                
             </ResponsiveContainer>
         </div> 
     );

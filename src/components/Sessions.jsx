@@ -43,6 +43,7 @@ const SessionsEvolution = ({ data }) => {
 
       return (
        <div className="line-chart">
+        <span className="title-linear">Durée moyenne des sessions</span>
         <ResponsiveContainer  height={263}>
           <LineChart         width={500}
         height={300}
