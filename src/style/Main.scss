@@ -1,8 +1,12 @@
-.Page {
+body {
+  margin: 0;
+  font-family: 'Roboto';
+}
 
-top: 159px;
-left: 224px;
-  position: relative;
+.Page {
+  margin-top: 159px;
+  margin-left: 224px;
+  margin-right: 20px;
 }
 
 .profile-header {
@@ -15,11 +19,13 @@ left: 224px;
     font-weight: 500;
     font-size: 48px;
     line-height: 24px;
+
     &:nth-child(2) {
       color: rgba(255, 1, 1, 1);
       padding-left: 10px;
     }
   }
+
   div {
     margin-top: 50px;
     font-weight: 400;
@@ -34,90 +40,93 @@ left: 224px;
 }
 
 .sidebar {
-    width: 117px;
-    height: 1024px;
-    box-shadow: 0px 4px 4px 0px #00000040;
-    background: #020203;
+  width: 117px;
+  height: 1024px;
+  box-shadow: 0px 4px 4px 0px #00000040;
+  background: #020203;
 }
 
 .otherChart {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   margin-top: 6%;
+  flex-wrap: wrap;
 }
 
 .loader {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    z-index: 1;
-    width: 120px;
-    height: 120px;
-    margin: -76px 0 0 -76px;
-    border: 16px solid #f3f3f3;
-    border-radius: 50%;
-    border-top: 16px solid #3498db;
-    -webkit-animation: spin 2s linear infinite;
-    animation: spin 2s linear infinite;
-  }
-  
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 1;
+  width: 120px;
+  height: 120px;
+  margin: -76px 0 0 -76px;
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
   }
 
-  .energy {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+  100% {
+    transform: rotate(360deg);
   }
+}
 
-  .box {
-    width: 30%;
-    height: 124px;
-    display: flex;
-    background-color: #FBFBFB;
-    box-shadow: 0px 2px 4px 0px #00000005;
-    align-items: center;
-   
+.energy {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 500px;
+}
 
-    img {
-      margin-left: 60%;
-      width: 60px;
-      height: 60px;
-    }
+.box {
+  display: flex;
+  align-items: center;
+
+  img {
+    width: 60px;
+    height: 60px;
   }
+}
 
-  .info {
-    display: flex;
-    flex-direction: column;
-    margin-left: 50px;
-    p {
-      font-family: Roboto;
-      font-size: 20px;
-      font-weight: 700;
-      line-height: 24px;
-      letter-spacing: 0px;
-      text-align: left;
-      margin: 0px;
-    }
+.info {
+  display: flex;
+  flex-direction: column;
+  margin-left: 50px;
+
+  p {
+    font-family: Roboto;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 24px;
+    letter-spacing: 0px;
+    text-align: left;
+    margin: 0px;
   }
+}
 
 .chart-container {
   height: 320px;
-background-color: #00000005;
-.title-barchart{
-  font-family: Roboto;
-  font-size: 15px;
-  font-weight: 500;
-  line-height: 24px;
-  letter-spacing: 0px;
-  text-align: left;
+  background-color: #00000005;
+
+  .title-barchart {
+    font-family: Roboto;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: 0px;
+    text-align: left;
+
+  }
+
 
 }
-
-
-} 
 
 .allchart {
   width: 70%;
@@ -128,12 +137,18 @@ background-color: #00000005;
   width: 33%;
   background-color: #282D30;
   box-shadow: 0px 2px 4px 0px #00000005;
+  min-width: 354px;
+  margin-top: 2%;
+  border-radius: 5px;
 }
 
 .radial-bar {
   width: 33%;
   background: #FBFBFB;
   box-shadow: 0px 2px 4px 0px #00000005;
+  min-width: 354px;
+  margin-top: 2%;
+  border-radius: 5px;
 
   .recharts-wrapper {
     .recharts-legend-wrapper {
@@ -150,6 +165,7 @@ background-color: #00000005;
           font-size: 26px;
           font-weight: 800;
         }
+
         p.description {
           font-size: 16px;
           color: rgba(116, 121, 140, 1);
@@ -165,6 +181,9 @@ background-color: #00000005;
 .line-chart {
   width: 33%;
   background-color: #ff0000;
+  min-width: 354px;
+  margin-top: 2%;
+  border-radius: 5px;
 }
 
 .title-score {
@@ -179,7 +198,7 @@ background-color: #00000005;
   top: 10%;
 }
 
-.title-linear{
+.title-linear {
   font-family: Roboto;
   font-size: 15px;
   font-weight: 500;
@@ -187,7 +206,7 @@ background-color: #00000005;
   letter-spacing: 0px;
   text-align: left;
   position: relative;
-  color:  rgba(255, 255, 255, 0.504);
+  color: rgba(255, 255, 255, 0.504);
   top: 8%;
   left: 12%;
 }

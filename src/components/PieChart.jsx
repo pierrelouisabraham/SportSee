@@ -1,5 +1,5 @@
 import React from 'react';
-import { RadarChart, PolarGrid, PolarAngleAxis, Radar, ResponsiveContainer, RadialBarChart, RadialBar, Legend } from 'recharts';
+import { PolarAngleAxis, ResponsiveContainer, RadialBarChart, RadialBar, Legend } from 'recharts';
 
 const TodaysScoreRadarChart = ({ todayScoreData }) => {
   const res = [{ score: todayScoreData }]
@@ -15,8 +15,8 @@ const TodaysScoreRadarChart = ({ todayScoreData }) => {
 
 
   return (
-    <div className='radial-bar'>  
-    <span className='title-score'>Score</span>
+    <div className='radial-bar'>
+      <span className='title-score'>Score</span>
       <ResponsiveContainer height={263}>
         <RadialBarChart
           cx="50%"
@@ -46,7 +46,7 @@ const TodaysScoreRadarChart = ({ todayScoreData }) => {
           />
         </RadialBarChart>
       </ResponsiveContainer>
-      </div>
+    </div>
   );
 };
 

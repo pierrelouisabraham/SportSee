@@ -2,10 +2,10 @@ import React from 'react'
 import logo from '../resources/logo.png'
 import '../style/Header.scss'
 
-const Headers = ({}) => {
-    return(
+const Headers = () => {
+    return (
         <div className='header'>
-            <img src={logo} alt='logo'/>
+            <img src={logo} alt='logo' />
             <div className='menu'>
                 <span className='menuText'>Accueil</span>
                 <span className='menuText'>profil</span>

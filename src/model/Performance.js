@@ -1,30 +1,22 @@
-class PerformanceData  {
-    constructor(data) {
-      const dataKind = {
-          1:'Cardio',
-          2:'Energie',
-          3:'Endurance',
-          4:'Force',
-          5:'Vitesse',
-          6:'Intensité'
-      }
-      
-        const radarData = data.data.data.map(item => {
-            console.log('Item:', item);
-            
-            const kindValue = dataKind[parseInt(item.kind)];
-            console.log('Kind Value:', dataKind);
-            
-            const transformedItem = {
-              kind: kindValue,
-              value: item.value.toString(),
-            };
-            console.log('Transformed Item:', transformedItem);
-            
-            return transformedItem;
-          });
-          console.log('trasform:',radarData)
-          this.data = radarData
-        }
-    }
-    module.exports = PerformanceData; 
+const dataKind = {
+  1: { name: 'Cardio', order: 6 },
+  2: { name: 'Energie', order: 5 },
+  3: { name: 'Endurance', order: 4 },
+  4: { name: 'Force', order: 3 },
+  5: { name: 'Vitesse', order: 2 },
+  6: { name: 'Intensité', order: 1 },
+}
+
+class PerformanceData {
+
+  constructor(data) {
+    this.dataKind = dataKind
+    this.data = data.data.data.map((item) => {
+      const kind = dataKind[item.kind]
+      return { ...item, ...kind }
+    })
+      .sort((a, b) => (a.order < b.order ? -1 : 1))
+  }
+}
+
+module.exports = PerformanceData; 

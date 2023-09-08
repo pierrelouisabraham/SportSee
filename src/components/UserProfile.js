@@ -2,9 +2,6 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import DailyExercises from './DailyExercises.jsx'
 import RadarChartPerformance from '../components/Performance.jsx'
-import Headers from './Header.jsx';
-import SideBar from './SideBar.jsx';
-import "../style/Main.scss"
 import CaloriesCount from './CaloriesCount.jsx';
 import SessionsEvolution from './Sessions.jsx';
 import ProteinsCount from './Proteins.jsx';
@@ -14,13 +11,16 @@ import TodaysScoreRadarChart from './PieChart.jsx'
 import ActivityData from '../model/Activity.js';
 import PerformanceData from '../model/Performance.js';
 import SessionData from '../model/Session.js';
-import { PieChart } from 'recharts';
 
 const UserProfile = ({ userId }) => {
   const [userData, setUserData] = useState(null);
+  const [userDataError, setUserDataError] = useState(false);
   const [activityData, setActivityData] = useState(null);
+  const [activityDataError, setActivityDataError] = useState(false);
   const [performanceData, setPerformanceData] = useState(null);
+  const [performanceDataError, setPerformanceDataError] = useState(false);
   const [sessionsData, setSessionsData] = useState(null);
+  const [sessionDataError, setSessionDataError] = useState(false);
 
   const PORT = process.env.REACT_APP_ENVIRONMENT === 'mockApi' ? '3001' : '3000'
 
@@ -28,25 +28,33 @@ const UserProfile = ({ userId }) => {
     const fetchData = async () => {
       try {
         console.log('Fetching user data...');
-        const userResponse = await axios.get(`http://localhost:${PORT}/user/${userId}`);
+        const userResponse = await axios.get(`http://localhost:${PORT}/user/${userId}`)
+          .then(data => data)
+          .catch(error => setUserDataError(true));
         console.log('User data response:', userResponse.data);
         setUserData(userResponse.data.data);
 
         console.log('Fetching activity data...');
-        const activityResponse = await axios.get(`http://localhost:${PORT}/user/${userId}/activity`);
+        const activityResponse = await axios.get(`http://localhost:${PORT}/user/${userId}/activity`)
+          .then(data => data)
+          .catch(error => setActivityDataError(true));
         console.log('Activity data response:', activityResponse.data);
         setActivityData(new ActivityData(activityResponse.data));
 
         console.log('Fetching activity data...');
-        const performanceResponse = await axios.get(`http://localhost:${PORT}/user/${userId}/performance`);
+        const performanceResponse = await axios.get(`http://localhost:${PORT}/user/${userId}/performance`)
+          .then(data => data)
+          .catch(error => setPerformanceDataError(true));
         console.log('Performance data response:', performanceResponse.data);
         setPerformanceData(new PerformanceData(performanceResponse.data));
 
         console.log('Fetching activity data...');
-        const sessionsData = await axios.get(`http://localhost:${PORT}/user/${userId}/average-sessions`);
+        const sessionsData = await axios.get(`http://localhost:${PORT}/user/${userId}/average-sessions`)
+          .then(data => data)
+          .catch(error => setSessionDataError(true));
         console.log('Session data response:', sessionsData.data);
-        setSessionsData(new SessionData(sessionsData.data));   
-        
+        setSessionsData(new SessionData(sessionsData.data));
+
 
       } catch (error) {
         console.error('Fetch error:', error);
@@ -54,23 +62,23 @@ const UserProfile = ({ userId }) => {
     };
 
     fetchData();
-  }, [userId]);
+  }, [PORT, userId]);
 
+  if (userDataError || activityDataError || performanceDataError || sessionDataError) {
+    return <section>Oups il y a eu un problème</section>;
+  }
 
   if (!userData || !activityData || !performanceData || !sessionsData) {
     return <div className="loader"></div>;
   }
 
   const { userInfos, keyData } = userData;
-  
+
   let scoreData = userData.todayScore || userData.score;
 
 
   return (
- 
-      <div className='Page'>
-      <Headers />
-      <SideBar />
+    <>
       <div className="profile-header">
         <span>Bonjour </span>
         <span>{userInfos.firstName}</span>
@@ -80,7 +88,7 @@ const UserProfile = ({ userId }) => {
         <div className='allchart'>
           <DailyExercises data={activityData} />
           <div className='otherChart'>
-            <SessionsEvolution data={sessionsData} /> 
+            <SessionsEvolution data={sessionsData} />
             <RadarChartPerformance data={performanceData} />
             <TodaysScoreRadarChart todayScoreData={scoreData} />
           </div>
@@ -92,10 +100,7 @@ const UserProfile = ({ userId }) => {
           <LipidesCount data={keyData.lipidCount} />
         </div>
       </div>
-
-    </div>
-
-  
+    </>
   );
 };
 
