@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import DailyExercises from './DailyExercises.jsx'
 import RadarChartPerformance from '../components/Performance.jsx'
 import CaloriesCount from './CaloriesCount.jsx';
@@ -8,9 +7,7 @@ import ProteinsCount from './Proteins.jsx';
 import GlucidesCount from './Glucides.jsx';
 import LipidesCount from './Lipides.jsx';
 import TodaysScoreRadarChart from './PieChart.jsx'
-import ActivityData from '../model/Activity.js';
-import PerformanceData from '../model/Performance.js';
-import SessionData from '../model/Session.js';
+import { getUserData, getActivityData, getPerformanceData, getSessionData } from '../utils/apiHandler.js'
 
 const UserProfile = ({ userId }) => {
   const [userData, setUserData] = useState(null);
@@ -22,47 +19,31 @@ const UserProfile = ({ userId }) => {
   const [sessionsData, setSessionsData] = useState(null);
   const [sessionDataError, setSessionDataError] = useState(false);
 
-  const PORT = process.env.REACT_APP_ENVIRONMENT === 'mockApi' ? '3001' : '3000'
-
   useEffect(() => {
     const fetchData = async () => {
       try {
-        console.log('Fetching user data...');
-        const userResponse = await axios.get(`http://localhost:${PORT}/user/${userId}`)
-          .then(data => data)
+        const userResponse = await getUserData(userId)
           .catch(error => setUserDataError(true));
-        console.log('User data response:', userResponse.data);
         setUserData(userResponse.data.data);
 
-        console.log('Fetching activity data...');
-        const activityResponse = await axios.get(`http://localhost:${PORT}/user/${userId}/activity`)
-          .then(data => data)
+        const activityResponse = await getActivityData(userId)
           .catch(error => setActivityDataError(true));
-        console.log('Activity data response:', activityResponse.data);
-        setActivityData(new ActivityData(activityResponse.data));
+        setActivityData(activityResponse)
 
-        console.log('Fetching activity data...');
-        const performanceResponse = await axios.get(`http://localhost:${PORT}/user/${userId}/performance`)
-          .then(data => data)
+        const performanceResponse = await getPerformanceData(userId)
           .catch(error => setPerformanceDataError(true));
-        console.log('Performance data response:', performanceResponse.data);
-        setPerformanceData(new PerformanceData(performanceResponse.data));
+        setPerformanceData(performanceResponse)
 
-        console.log('Fetching activity data...');
-        const sessionsData = await axios.get(`http://localhost:${PORT}/user/${userId}/average-sessions`)
-          .then(data => data)
+        const sessionResponse = await getSessionData(userId)
           .catch(error => setSessionDataError(true));
-        console.log('Session data response:', sessionsData.data);
-        setSessionsData(new SessionData(sessionsData.data));
-
-
+        setSessionsData(sessionResponse)
       } catch (error) {
         console.error('Fetch error:', error);
       }
     };
 
     fetchData();
-  }, [PORT, userId]);
+  }, [userId]);
 
   if (userDataError || activityDataError || performanceDataError || sessionDataError) {
     return <section>Oups il y a eu un problème</section>;
